@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SRMS - ERD Diagram</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .container { max-width: 1000px; width: 100%; }
+    h1 {
+      font-size: 24px;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .erd-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .entity-row {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .entity {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+      width: 280px;
+      overflow: hidden;
+      border: 2px solid #e2e8f0;
+    }
+    .entity-header {
+      background: #3b82f6;
+      color: white;
+      padding: 10px 16px;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.3px;
+    }
+    .entity-header.customer { background: #3b82f6; }
+    .entity-header.product { background: #8b5cf6; }
+    .entity-header.sale { background: #10b981; }
+    .entity-fields {
+      padding: 8px 0;
+    }
+    .field {
+      padding: 6px 16px;
+      font-size: 13px;
+      color: #334155;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .field:last-child { border-bottom: none; }
+    .pk { color: #3b82f6; font-weight: 600; }
+    .fk { color: #f59e0b; font-weight: 600; }
+    .badge {
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .badge-pk { background: #dbeafe; color: #1d4ed8; }
+    .badge-fk { background: #fef3c7; color: #b45309; }
+    .relationship-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 0;
+    }
+    .relationship-card {
+      background: white;
+      border-radius: 8px;
+      padding: 12px 20px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+      font-size: 13px;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .arrow { color: #94a3b8; font-size: 18px; }
+    .cardinality {
+      background: #f1f5f9;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #475569;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 32px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    .legend {
+      background: white;
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      margin-top: 32px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #475569;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+    .legend-dot.pk { background: #3b82f6; }
+    .legend-dot.fk { background: #f59e0b; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sales Record Management System — ERD</h1>
+    <p class="subtitle">Entity Relationship Diagram — SalesPro Ltd, Huye District, Rwanda</p>
+
+    <div class="erd-grid">
+      <div class="entity-row">
+        <!-- Customer -->
+        <div class="entity">
+          <div class="entity-header customer">Customer</div>
+          <div class="entity-fields">
+            <div class="field"><span><span class="pk">_id</span> (PK)</span> <span class="badge badge-pk">PK</span></div>
+            <div class="field"><span>customerNumber</span> <span style="color:#94a3b8;font-size:11px;">unique</span></div>
+            <div class="field"><span>firstName</span></div>
+            <div class="field"><span>lastName</span></div>
+            <div class="field"><span>telephone</span></div>
+            <div class="field"><span>address</span></div>
+          </div>
+        </div>
+
+        <!-- Relationship arrow -->
+        <div class="relationship-card">
+          <span class="cardinality">1</span>
+          <span class="arrow">⟶</span>
+          <span class="cardinality">Many</span>
+        </div>
+
+        <!-- Sale -->
+        <div class="entity">
+          <div class="entity-header sale">Sale</div>
+          <div class="entity-fields">
+            <div class="field"><span><span class="pk">_id</span> (PK)</span> <span class="badge badge-pk">PK</span></div>
+            <div class="field"><span><span class="fk">customerId</span> (FK)</span> <span class="badge badge-fk">FK</span></div>
+            <div class="field"><span><span class="fk">productId</span> (FK)</span> <span class="badge badge-fk">FK</span></div>
+            <div class="field"><span>invoiceNumber</span> <span style="color:#94a3b8;font-size:11px;">unique</span></div>
+            <div class="field"><span>salesDate</span></div>
+            <div class="field"><span>paymentMethod</span></div>
+            <div class="field"><span>quantityPurchased</span></div>
+            <div class="field"><span>totalAmountPaid</span></div>
+          </div>
+        </div>
+
+        <!-- Relationship arrow -->
+        <div class="relationship-card">
+          <span class="cardinality">1</span>
+          <span class="arrow">⟶</span>
+          <span class="cardinality">Many</span>
+        </div>
+
+        <!-- Product -->
+        <div class="entity">
+          <div class="entity-header product">Product</div>
+          <div class="entity-fields">
+            <div class="field"><span><span class="pk">_id</span> (PK)</span> <span class="badge badge-pk">PK</span></div>
+            <div class="field"><span>productCode</span> <span style="color:#94a3b8;font-size:11px;">unique</span></div>
+            <div class="field"><span>productName</span></div>
+            <div class="field"><span>quantitySold</span></div>
+            <div class="field"><span>unitPrice</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Relationships</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="relationship-card" style="justify-content:space-between;">
+        <span><strong>Customer</strong> (1) ⟶ <strong>Sale</strong> (Many)</span>
+        <span style="color:#64748b;">One customer can have many sales</span>
+      </div>
+      <div class="relationship-card" style="justify-content:space-between;">
+        <span><strong>Product</strong> (1) ⟶ <strong>Sale</strong> (Many)</span>
+        <span style="color:#64748b;">One product can appear in many sales</span>
+      </div>
+      <div class="relationship-card" style="justify-content:space-between;">
+        <span><strong>Sale</strong> belongs to <strong>one Customer</strong> and <strong>one Product</strong></span>
+        <span style="color:#64748b;">Composite foreign key relationship</span>
+      </div>
+    </div>
+
+    <div class="section-title">Normalization</div>
+    <div style="background:white;border-radius:12px;padding:16px 20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;color:#475569;">
+        <li>✓ <strong>1NF:</strong> Atomic values, unique primary keys (_id)</li>
+        <li>✓ <strong>2NF:</strong> No partial dependencies — all non-key attributes fully depend on primary key</li>
+        <li>✓ <strong>3NF:</strong> No transitive dependencies — no redundant data across tables</li>
+        <li>✓ Referential integrity via ObjectId references (MongoDB \$lookup or populate)</li>
+        <li>✓ totalAmountPaid is derived (quantityPurchased × unitPrice) — computed at application layer</li>
+      </ul>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot pk"></div> Primary Key (PK)</div>
+      <div class="legend-item"><div class="legend-dot fk"></div> Foreign Key (FK)</div>
+      <div class="legend-item"><span style="color:#94a3b8;">○</span> Regular Field</div>
+      <div class="legend-item"><span style="color:#3b82f6;">⟶</span> One-to-Many Relationship</div>
+    </div>
+  </div>
+</body>
+</html>
